@@ -12,6 +12,8 @@ def get_engine() -> Engine:
 
 
 def _create_engine(url: str) -> Engine:
+    if url.startswith("postgres://"):
+        url = url.replace("postgres://", "postgresql://", 1)
     if url.startswith("sqlite"):
         from pathlib import Path
 

@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
 from app.core.logging import setup_logging
-from app.api.routes import health, meta, lookups, dashboards, etl, ui_screens
+from app.api.routes import auth, health, meta, lookups, dashboards, etl, ui_screens
 
 setup_logging()
 
@@ -24,6 +24,7 @@ app.add_middleware(
 
 api_prefix = settings.api_prefix
 
+app.include_router(auth.router, prefix=api_prefix, tags=["Auth"])
 app.include_router(health.router, tags=["Health"])
 app.include_router(meta.router, prefix=api_prefix, tags=["Meta"])
 app.include_router(lookups.router, prefix=api_prefix, tags=["Lookups"])

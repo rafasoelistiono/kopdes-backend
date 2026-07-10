@@ -29,6 +29,108 @@ Response:
 }
 ```
 
+## Authentication
+
+Token-based auth. Token returned from `/login` must be sent as `Authorization: Bearer <token>` header for protected endpoints. Token expires in 24h.
+
+### Register
+
+```http
+POST /api/v1/auth/register
+Content-Type: application/json
+
+{
+  "username": "saya",
+  "password": "rahasia123",
+  "name": "Saya Pengguna"
+}
+```
+
+Success:
+
+```json
+{
+  "success": true,
+  "message": "User registered"
+}
+```
+
+Error (duplicate):
+
+```json
+{
+  "detail": "Username already exists"
+}
+```
+
+### Login
+
+```http
+POST /api/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "saya",
+  "password": "rahasia123"
+}
+```
+
+Success:
+
+```json
+{
+  "success": true,
+  "token": "abc123...opaque_token",
+  "user": {
+    "id": 1,
+    "username": "saya",
+    "name": "Saya Pengguna"
+  }
+}
+```
+
+Error:
+
+```json
+{
+  "detail": "Invalid credentials"
+}
+```
+
+### Logout
+
+Revokes current token.
+
+```http
+POST /api/v1/auth/logout
+Authorization: Bearer <token>
+```
+
+```json
+{
+  "success": true,
+  "message": "Logged out"
+}
+```
+
+### Me (get current user)
+
+```http
+GET /api/v1/auth/me
+Authorization: Bearer <token>
+```
+
+```json
+{
+  "success": true,
+  "user": {
+    "id": 1,
+    "username": "saya",
+    "name": "Saya Pengguna"
+  }
+}
+```
+
 ## Valid Dashboards
 
 Only these dashboards exist:
