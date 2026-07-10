@@ -360,6 +360,7 @@ def run_logged(job_name: str, source_tables: list[str], fn, metadata: dict | Non
     )
     try:
         rows = fn()
+        row_count = _row_count(rows)
         duration_ms = int((time.monotonic() - started) * 1000)
         execute_write(
             f"""
@@ -368,7 +369,7 @@ def run_logged(job_name: str, source_tables: list[str], fn, metadata: dict | Non
                 rows_extracted = :rows, rows_upserted = :rows
             WHERE run_ref = :run_ref
             """,
-            {"run_ref": run_ref, "duration_ms": duration_ms, "rows": max(rows, 0)},
+            {"run_ref": run_ref, "duration_ms": duration_ms, "rows": row_count},
         )
         return {"run_ref": run_ref, "job_name": job_name, "status": "success", "rows": rows}
     except Exception as exc:
@@ -383,6 +384,16 @@ def run_logged(job_name: str, source_tables: list[str], fn, metadata: dict | Non
             {"run_ref": run_ref, "duration_ms": duration_ms, "error_message": str(exc)[:4000]},
         )
         raise
+
+
+def _row_count(rows) -> int:
+    if isinstance(rows, int):
+        return max(rows, 0)
+    if isinstance(rows, dict):
+        return sum(value for value in rows.values() if isinstance(value, int))
+    if isinstance(rows, list):
+        return len(rows)
+    return 0
 
 
 def _execute_etl(sql: str, params: dict | None = None) -> int:
