@@ -821,11 +821,11 @@ def refresh_regional_monthly_metrics(period: str) -> int:
         LEFT JOIN {t['rat_compliance_snapshot']} rc ON rc.koperasi_ref = ks.koperasi_ref
         LEFT JOIN {t['gerai_asset_snapshot']} ga ON ga.koperasi_ref = ks.koperasi_ref
     ), scoped AS (
-        SELECT 'nasional' scope_level, 'nasional' scope_code, NULL::text provinsi, NULL::text kab_kota, NULL::text kecamatan, NULL::text desa_kelurahan, NULL::text kode_wilayah, * FROM base
-        UNION ALL SELECT 'provinsi', coalesce(provinsi, 'unknown'), provinsi, NULL, NULL, NULL, NULL, * FROM base
-        UNION ALL SELECT 'kab_kota', coalesce(kab_kota, 'unknown'), provinsi, kab_kota, NULL, NULL, NULL, * FROM base
-        UNION ALL SELECT 'kecamatan', coalesce(kecamatan, 'unknown'), provinsi, kab_kota, kecamatan, NULL, NULL, * FROM base
-        UNION ALL SELECT 'desa', coalesce(kode_wilayah, 'unknown'), provinsi, kab_kota, kecamatan, desa_kelurahan, kode_wilayah, * FROM base
+        SELECT 'nasional' scope_level, 'nasional' scope_code, NULL::text scope_provinsi, NULL::text scope_kab_kota, NULL::text scope_kecamatan, NULL::text scope_desa_kelurahan, NULL::text scope_kode_wilayah, b.* FROM base b
+        UNION ALL SELECT 'provinsi', coalesce(b.provinsi, 'unknown'), b.provinsi, NULL, NULL, NULL, NULL, b.* FROM base b
+        UNION ALL SELECT 'kab_kota', coalesce(b.kab_kota, 'unknown'), b.provinsi, b.kab_kota, NULL, NULL, NULL, b.* FROM base b
+        UNION ALL SELECT 'kecamatan', coalesce(b.kecamatan, 'unknown'), b.provinsi, b.kab_kota, b.kecamatan, NULL, NULL, b.* FROM base b
+        UNION ALL SELECT 'desa', coalesce(b.kode_wilayah, 'unknown'), b.provinsi, b.kab_kota, b.kecamatan, b.desa_kelurahan, b.kode_wilayah, b.* FROM base b
     )
     INSERT INTO {t['regional_monthly_metrics']} (
         metric_ref, scope_level, scope_code, provinsi, kab_kota, kecamatan, desa_kelurahan,
@@ -837,8 +837,8 @@ def refresh_regional_monthly_metrics(period: str) -> int:
         pembangunan_selesai, total_pengajuan_pembiayaan, total_nominal_pembiayaan,
         total_pengajuan_kemitraan, priority_score, updated_at
     )
-    SELECT scope_level || '-' || scope_code || '-' || :period, scope_level, scope_code, scoped.provinsi,
-           scoped.kab_kota, scoped.kecamatan, scoped.desa_kelurahan, scoped.kode_wilayah,
+    SELECT scope_level || '-' || scope_code || '-' || :period, scope_level, scope_code, scoped.scope_provinsi,
+           scoped.scope_kab_kota, scoped.scope_kecamatan, scoped.scope_desa_kelurahan, scoped.scope_kode_wilayah,
            :period, :year, :month, count(*)::int,
            count(*) FILTER (WHERE lower(coalesce(status_registrasi, '')) IN ('verified','aktif','active'))::int,
            count(*) FILTER (WHERE has_npwp_doc)::int, count(*) FILTER (WHERE has_nib_doc)::int,
@@ -854,7 +854,7 @@ def refresh_regional_monthly_metrics(period: str) -> int:
            coalesce(sum(total_pengajuan_pembiayaan), 0)::int, coalesce(sum(total_nominal_pembiayaan), 0),
            coalesce(sum(total_pengajuan_kemitraan), 0)::int, round(avg(priority_score), 2), now()
     FROM scoped
-    GROUP BY scope_level, scope_code, scoped.provinsi, scoped.kab_kota, scoped.kecamatan, scoped.desa_kelurahan, scoped.kode_wilayah
+    GROUP BY scope_level, scope_code, scoped.scope_provinsi, scoped.scope_kab_kota, scoped.scope_kecamatan, scoped.scope_desa_kelurahan, scoped.scope_kode_wilayah
     ON CONFLICT (scope_level, scope_code, period_month) DO UPDATE SET
         total_koperasi = EXCLUDED.total_koperasi, koperasi_aktif = EXCLUDED.koperasi_aktif,
         koperasi_has_npwp = EXCLUDED.koperasi_has_npwp, koperasi_has_nib = EXCLUDED.koperasi_has_nib,
