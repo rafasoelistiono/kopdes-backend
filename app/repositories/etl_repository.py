@@ -799,7 +799,10 @@ def refresh_regional_monthly_metrics(period: str) -> int:
         return _upsert_rows(t["regional_monthly_metrics"], rows, ["scope_level", "scope_code", "period_month"])
     return _execute_etl(f"""
     WITH base AS (
-        SELECT ks.*, km.period_month, coalesce(km.total_omzet, 0) total_omzet,
+        SELECT ks.koperasi_ref, ks.status_registrasi, ks.kode_wilayah, ks.provinsi, ks.kab_kota,
+               ks.kecamatan, ks.desa_kelurahan, ks.has_npwp_doc, ks.has_nib_doc, ks.has_badan_hukum_doc,
+               ks.has_rat, ks.total_anggota,
+               km.period_month, coalesce(km.total_omzet, 0) total_omzet,
                coalesce(km.total_transaksi, 0) total_transaksi, coalesce(km.total_volume_produk, 0) total_volume_produk,
                coalesce(km.total_simpanan, 0) monthly_simpanan, coalesce(km.simpanan_paid, 0) simpanan_paid,
                coalesce(km.total_pengajuan_pembiayaan, 0) total_pengajuan_pembiayaan,
