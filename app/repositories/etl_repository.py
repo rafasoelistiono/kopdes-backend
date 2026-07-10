@@ -733,13 +733,13 @@ def _regional_rows_from_dashboard(period: str, year: int, month: int, t: dict[st
                COALESCE(km.total_pengajuan_pembiayaan, 0) AS total_pengajuan_pembiayaan,
                COALESCE(km.total_nominal_pembiayaan, 0) AS total_nominal_pembiayaan,
                COALESCE(km.total_pengajuan_kemitraan, 0) AS total_pengajuan_kemitraan,
-               COALESCE(rc.rat_verified, 0) AS rat_verified,
-               COALESCE(rc.rat_draft, 0) AS rat_draft,
+               COALESCE(rc.rat_verified, false) AS rat_verified,
+               COALESCE(rc.rat_draft, false) AS rat_draft,
                COALESCE(ga.total_gerai, 0) AS total_gerai,
                COALESCE(ga.gerai_aktif, 0) AS gerai_aktif,
                COALESCE(ga.gerai_belum_aktif, 0) AS gerai_belum_aktif,
-               COALESCE(ga.akses_listrik, 0) AS akses_listrik,
-               COALESCE(ga.akses_internet, 0) AS akses_internet,
+               COALESCE(ga.akses_listrik, false) AS akses_listrik,
+               COALESCE(ga.akses_internet, false) AS akses_internet,
                ga.pembangunan_bucket
         FROM {t['koperasi_snapshot']} ks
         LEFT JOIN {t['koperasi_monthly_metrics']} km
