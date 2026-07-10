@@ -1,0 +1,575 @@
+{
+  "active_scope_candidate": {
+    "koperasi_ref": "KOP-8F17A99DB403",
+    "nama_koperasi": "KOPERASI DESA MERAH PUTIH SUMBER MANDIRI BELUMBANG",
+    "kode_wilayah": "51.02.04.2004",
+    "potensi_count": 8,
+    "pengurus_count": 8,
+    "pengurus_pengurus_count": 5,
+    "pengurus_pengawas_count": 3,
+    "kbli_count": 27,
+    "modal_count": 0,
+    "simpanan_count": 175,
+    "pinjaman_count": 0,
+    "pinjaman_active_count": 0,
+    "match_score": 5,
+    "updated_at": "2026-07-10 15:57:40"
+  },
+  "screens": {
+    "potensi_desa": {
+      "screen": "potensi_desa",
+      "rows": [
+        {
+          "komoditas_ref": "KOM-661557A65275",
+          "kode_wilayah": "51.02.04.2004",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "nama_koperasi": "KOPERASI DESA MERAH PUTIH SUMBER MANDIRI BELUMBANG",
+          "provinsi": "BALI",
+          "kab_kota": "KAB. TABANAN",
+          "kecamatan": "Kerambitan",
+          "desa_kelurahan": "Belumbang",
+          "total_penduduk": 2163,
+          "penduduk_laki_laki": 1053,
+          "penduduk_perempuan": 1110,
+          "anggaran_dana_desa": 280855000.0,
+          "nama_komoditas": "Ayam",
+          "luas_area": "0.00 ",
+          "volume": "0.00 ",
+          "jumlah_sdm_terlibat": null,
+          "nilai_potensi_desa": 0.0,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "komoditas_ref": "KOM-318AD82EA48E",
+          "kode_wilayah": "51.02.04.2004",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "nama_koperasi": "KOPERASI DESA MERAH PUTIH SUMBER MANDIRI BELUMBANG",
+          "provinsi": "BALI",
+          "kab_kota": "KAB. TABANAN",
+          "kecamatan": "Kerambitan",
+          "desa_kelurahan": "Belumbang",
+          "total_penduduk": 2163,
+          "penduduk_laki_laki": 1053,
+          "penduduk_perempuan": 1110,
+          "anggaran_dana_desa": 280855000.0,
+          "nama_komoditas": "Babi",
+          "luas_area": "0.00 ",
+          "volume": "0.00 ",
+          "jumlah_sdm_terlibat": null,
+          "nilai_potensi_desa": 0.0,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "komoditas_ref": "KOM-EDEB1A4E15E1",
+          "kode_wilayah": "51.02.04.2004",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "nama_koperasi": "KOPERASI DESA MERAH PUTIH SUMBER MANDIRI BELUMBANG",
+          "provinsi": "BALI",
+          "kab_kota": "KAB. TABANAN",
+          "kecamatan": "Kerambitan",
+          "desa_kelurahan": "Belumbang",
+          "total_penduduk": 2163,
+          "penduduk_laki_laki": 1053,
+          "penduduk_perempuan": 1110,
+          "anggaran_dana_desa": 280855000.0,
+          "nama_komoditas": "Bebek",
+          "luas_area": "0.00 ",
+          "volume": "0.00 ",
+          "jumlah_sdm_terlibat": null,
+          "nilai_potensi_desa": 0.0,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "komoditas_ref": "KOM-A6E9E1382D98",
+          "kode_wilayah": "51.02.04.2004",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "nama_koperasi": "KOPERASI DESA MERAH PUTIH SUMBER MANDIRI BELUMBANG",
+          "provinsi": "BALI",
+          "kab_kota": "KAB. TABANAN",
+          "kecamatan": "Kerambitan",
+          "desa_kelurahan": "Belumbang",
+          "total_penduduk": 2163,
+          "penduduk_laki_laki": 1053,
+          "penduduk_perempuan": 1110,
+          "anggaran_dana_desa": 280855000.0,
+          "nama_komoditas": "Itik",
+          "luas_area": "0.00 ",
+          "volume": "0.00 ",
+          "jumlah_sdm_terlibat": null,
+          "nilai_potensi_desa": 0.0,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "komoditas_ref": "KOM-B53244EEE5D2",
+          "kode_wilayah": "51.02.04.2004",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "nama_koperasi": "KOPERASI DESA MERAH PUTIH SUMBER MANDIRI BELUMBANG",
+          "provinsi": "BALI",
+          "kab_kota": "KAB. TABANAN",
+          "kecamatan": "Kerambitan",
+          "desa_kelurahan": "Belumbang",
+          "total_penduduk": 2163,
+          "penduduk_laki_laki": 1053,
+          "penduduk_perempuan": 1110,
+          "anggaran_dana_desa": 280855000.0,
+          "nama_komoditas": "Jagung",
+          "luas_area": "0.00 ",
+          "volume": "0.00 ",
+          "jumlah_sdm_terlibat": null,
+          "nilai_potensi_desa": 0.0,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "komoditas_ref": "KOM-231231A003FD",
+          "kode_wilayah": "51.02.04.2004",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "nama_koperasi": "KOPERASI DESA MERAH PUTIH SUMBER MANDIRI BELUMBANG",
+          "provinsi": "BALI",
+          "kab_kota": "KAB. TABANAN",
+          "kecamatan": "Kerambitan",
+          "desa_kelurahan": "Belumbang",
+          "total_penduduk": 2163,
+          "penduduk_laki_laki": 1053,
+          "penduduk_perempuan": 1110,
+          "anggaran_dana_desa": 280855000.0,
+          "nama_komoditas": "Kambing",
+          "luas_area": "0.00 ",
+          "volume": "0.00 ",
+          "jumlah_sdm_terlibat": null,
+          "nilai_potensi_desa": 0.0,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "komoditas_ref": "KOM-B6133E16FD8E",
+          "kode_wilayah": "51.02.04.2004",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "nama_koperasi": "KOPERASI DESA MERAH PUTIH SUMBER MANDIRI BELUMBANG",
+          "provinsi": "BALI",
+          "kab_kota": "KAB. TABANAN",
+          "kecamatan": "Kerambitan",
+          "desa_kelurahan": "Belumbang",
+          "total_penduduk": 2163,
+          "penduduk_laki_laki": 1053,
+          "penduduk_perempuan": 1110,
+          "anggaran_dana_desa": 280855000.0,
+          "nama_komoditas": "Padi",
+          "luas_area": "0.00 ",
+          "volume": "0.00 ",
+          "jumlah_sdm_terlibat": null,
+          "nilai_potensi_desa": 0.0,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "komoditas_ref": "KOM-877D2772AED4",
+          "kode_wilayah": "51.02.04.2004",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "nama_koperasi": "KOPERASI DESA MERAH PUTIH SUMBER MANDIRI BELUMBANG",
+          "provinsi": "BALI",
+          "kab_kota": "KAB. TABANAN",
+          "kecamatan": "Kerambitan",
+          "desa_kelurahan": "Belumbang",
+          "total_penduduk": 2163,
+          "penduduk_laki_laki": 1053,
+          "penduduk_perempuan": 1110,
+          "anggaran_dana_desa": 280855000.0,
+          "nama_komoditas": "Sapi",
+          "luas_area": "0.00 ",
+          "volume": "0.00 ",
+          "jumlah_sdm_terlibat": null,
+          "nilai_potensi_desa": 0.0,
+          "updated_at": "2026-07-10 15:57:40"
+        }
+      ],
+      "count": 8
+    },
+    "pengurus": {
+      "screen": "pengurus",
+      "rows": [
+        {
+          "pengurus_ref": "PGR-2F5CAD2579EB",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "nama_masked": "P***",
+          "jabatan": "SEKRETARIS",
+          "status": "PENGAWAS",
+          "no_hp_masked": "***0819",
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "pengurus_ref": "PGR-70EAA1F83285",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "nama_masked": "P***",
+          "jabatan": "KETUA",
+          "status": "PENGAWAS",
+          "no_hp_masked": "***0878",
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "pengurus_ref": "PGR-4862647345A0",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "nama_masked": "P***",
+          "jabatan": "WAKIL KETUA",
+          "status": "PENGURUS",
+          "no_hp_masked": "***0819",
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "pengurus_ref": "PGR-214250F47092",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "nama_masked": "P***",
+          "jabatan": "BENDAHARA",
+          "status": "PENGURUS",
+          "no_hp_masked": "***0812",
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "pengurus_ref": "PGR-55E8B92648CF",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "nama_masked": "P***",
+          "jabatan": "KETUA",
+          "status": "PENGURUS",
+          "no_hp_masked": "***0858",
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "pengurus_ref": "PGR-743076A04474",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "nama_masked": "P***",
+          "jabatan": "WAKIL KETUA",
+          "status": "PENGAWAS",
+          "no_hp_masked": "***0813",
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "pengurus_ref": "PGR-9D8A4C2A9ADE",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "nama_masked": "P***",
+          "jabatan": "ANGGOTA",
+          "status": "PENGURUS",
+          "no_hp_masked": "***0822",
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "pengurus_ref": "PGR-B8DEEFB43C10",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "nama_masked": "P***",
+          "jabatan": "ANGGOTA",
+          "status": "PENGURUS",
+          "no_hp_masked": "***0818",
+          "updated_at": "2026-07-10 15:57:40"
+        }
+      ],
+      "count": 8
+    },
+    "kbli": {
+      "screen": "kbli",
+      "rows": [
+        {
+          "metric_ref": "KOP-8F17A99DB403-19761",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "kode_kbli": "46652",
+          "nama_kbli": "Perdagangan Besar Pupuk Dan Produk Agrokimia",
+          "tipe_izin_usaha": null,
+          "tahun_kbli": null,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "metric_ref": "KOP-8F17A99DB403-19762",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "kode_kbli": "47111",
+          "nama_kbli": "Perdagangan Eceran Berbagai Macam Barang yang Utamanya Makanan, Minuman, atau Tembakau dengan Sistem Swalayan",
+          "tipe_izin_usaha": null,
+          "tahun_kbli": 2000,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "metric_ref": "KOP-8F17A99DB403-19763",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "kode_kbli": "47112",
+          "nama_kbli": "Perdagangan Eceran Berbagai Macam Barang yang Utamanya Makanan, Minuman, atau Tembakau Selain dengan Sistem Swalayan",
+          "tipe_izin_usaha": null,
+          "tahun_kbli": 2000,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "metric_ref": "KOP-8F17A99DB403-19764",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "kode_kbli": "47415",
+          "nama_kbli": "Perdagangan Eceran Mesin",
+          "tipe_izin_usaha": null,
+          "tahun_kbli": null,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "metric_ref": "KOP-8F17A99DB403-19765",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "kode_kbli": "47721",
+          "nama_kbli": "Perdagangan Eceran Sediaan Farmasi untuk Manusia di Apotek",
+          "tipe_izin_usaha": null,
+          "tahun_kbli": 2000,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "metric_ref": "KOP-8F17A99DB403-19766",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "kode_kbli": "47722",
+          "nama_kbli": "Perdagangan Eceran Sediaan Farmasi untuk Manusia Selain di Apotek",
+          "tipe_izin_usaha": null,
+          "tahun_kbli": 2000,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "metric_ref": "KOP-8F17A99DB403-19767",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "kode_kbli": "47723",
+          "nama_kbli": "Perdagangan Eceran Obat Bahan Alam untuk Manusia",
+          "tipe_izin_usaha": null,
+          "tahun_kbli": 2000,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "metric_ref": "KOP-8F17A99DB403-19768",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "kode_kbli": "47724",
+          "nama_kbli": "Perdagangan Eceran Kosmetik untuk Manusia",
+          "tipe_izin_usaha": null,
+          "tahun_kbli": 2000,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "metric_ref": "KOP-8F17A99DB403-19769",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "kode_kbli": "47725",
+          "nama_kbli": "Perdagangan Eceran Alat Kesehatan untuk Manusia",
+          "tipe_izin_usaha": null,
+          "tahun_kbli": 2000,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "metric_ref": "KOP-8F17A99DB403-19770",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "kode_kbli": "47726",
+          "nama_kbli": "Perdagangan Eceran Obat Farmasi untuk Hewan",
+          "tipe_izin_usaha": null,
+          "tahun_kbli": 2000,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "metric_ref": "KOP-8F17A99DB403-19771",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "kode_kbli": "47727",
+          "nama_kbli": "Perdagangan Eceran Obat Tradisional untuk Hewan",
+          "tipe_izin_usaha": null,
+          "tahun_kbli": 2000,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "metric_ref": "KOP-8F17A99DB403-19772",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "kode_kbli": "47728",
+          "nama_kbli": "Perdagangan Eceran Kosmetik untuk Hewan",
+          "tipe_izin_usaha": null,
+          "tahun_kbli": 2000,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "metric_ref": "KOP-8F17A99DB403-19773",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "kode_kbli": "47729",
+          "nama_kbli": "Perdagangan Eceran Bahan Baku Farmasi dan Alat Kesehatan Lainnya",
+          "tipe_izin_usaha": null,
+          "tahun_kbli": 2000,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "metric_ref": "KOP-8F17A99DB403-19774",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "kode_kbli": "52102",
+          "nama_kbli": "Aktivitas Gudang Dingin",
+          "tipe_izin_usaha": null,
+          "tahun_kbli": 2000,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "metric_ref": "KOP-8F17A99DB403-19775",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "kode_kbli": "52291",
+          "nama_kbli": "Angkutan Multimoda",
+          "tipe_izin_usaha": null,
+          "tahun_kbli": 2000,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "metric_ref": "KOP-8F17A99DB403-19776",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "kode_kbli": "52292",
+          "nama_kbli": "Aktivitas Tally Mandiri",
+          "tipe_izin_usaha": null,
+          "tahun_kbli": 2000,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "metric_ref": "KOP-8F17A99DB403-19777",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "kode_kbli": "52293",
+          "nama_kbli": "Aktivitas Ekspedisi Muatan Kapal (EMKL)",
+          "tipe_izin_usaha": null,
+          "tahun_kbli": null,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "metric_ref": "KOP-8F17A99DB403-19778",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "kode_kbli": "52294",
+          "nama_kbli": "Aktivitas Ekspedisi Muatan Pesawat Udara (EMPU)",
+          "tipe_izin_usaha": null,
+          "tahun_kbli": null,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "metric_ref": "KOP-8F17A99DB403-19779",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "kode_kbli": "52295",
+          "nama_kbli": "Angkutan Multimoda",
+          "tipe_izin_usaha": null,
+          "tahun_kbli": null,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "metric_ref": "KOP-8F17A99DB403-19780",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "kode_kbli": "52296",
+          "nama_kbli": "Jasa Penunjang Angkutan Udara",
+          "tipe_izin_usaha": null,
+          "tahun_kbli": null,
+          "updated_at": "2026-07-10 15:57:40"
+        }
+      ],
+      "count": 20
+    },
+    "modal": {
+      "screen": "modal",
+      "rows": [],
+      "count": 0
+    },
+    "simpanan": {
+      "screen": "simpanan",
+      "rows": [
+        {
+          "metric_ref": "KOP-8F17A99DB403-Simpanan Pokok-PAID",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "periode_pembayaran": "Simpanan Pokok",
+          "status": "PAID",
+          "row_count": 34,
+          "total_pembayaran": 3400000.0,
+          "paid_count": 34,
+          "unpaid_count": 0,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "metric_ref": "KOP-8F17A99DB403-Simpanan Pokok-UNPAID",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "periode_pembayaran": "Simpanan Pokok",
+          "status": "UNPAID",
+          "row_count": 11,
+          "total_pembayaran": 0.0,
+          "paid_count": 0,
+          "unpaid_count": 11,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "metric_ref": "KOP-8F17A99DB403-Simpanan Wajib - Agustus 2025-UNPAID",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "periode_pembayaran": "Simpanan Wajib - Agustus 2025",
+          "status": "UNPAID",
+          "row_count": 40,
+          "total_pembayaran": 0.0,
+          "paid_count": 0,
+          "unpaid_count": 40,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "metric_ref": "KOP-8F17A99DB403-Simpanan Wajib - Juli 2025-UNPAID",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "periode_pembayaran": "Simpanan Wajib - Juli 2025",
+          "status": "UNPAID",
+          "row_count": 40,
+          "total_pembayaran": 0.0,
+          "paid_count": 0,
+          "unpaid_count": 40,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "metric_ref": "KOP-8F17A99DB403-Simpanan Wajib - Juni 2025-PAID",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "periode_pembayaran": "Simpanan Wajib - Juni 2025",
+          "status": "PAID",
+          "row_count": 1,
+          "total_pembayaran": 10000.0,
+          "paid_count": 1,
+          "unpaid_count": 0,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "metric_ref": "KOP-8F17A99DB403-Simpanan Wajib - Juni 2025-UNPAID",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "periode_pembayaran": "Simpanan Wajib - Juni 2025",
+          "status": "UNPAID",
+          "row_count": 5,
+          "total_pembayaran": 0.0,
+          "paid_count": 0,
+          "unpaid_count": 5,
+          "updated_at": "2026-07-10 15:57:40"
+        },
+        {
+          "metric_ref": "KOP-8F17A99DB403-Simpanan Wajib - September 2025-UNPAID",
+          "koperasi_ref": "KOP-8F17A99DB403",
+          "periode_pembayaran": "Simpanan Wajib - September 2025",
+          "status": "UNPAID",
+          "row_count": 44,
+          "total_pembayaran": 0.0,
+          "paid_count": 0,
+          "unpaid_count": 44,
+          "updated_at": "2026-07-10 15:57:40"
+        }
+      ],
+      "count": 7
+    },
+    "pinjaman": {
+      "screen": "pinjaman",
+      "rows": [],
+      "count": 0
+    },
+    "penjualan": {
+      "screen": "penjualan",
+      "rows": [],
+      "count": 0
+    }
+  },
+  "joins": [
+    "profil_koperasi.koperasi_ref -> child tables.koperasi_ref",
+    "profil_koperasi.koperasi_ref -> referensi_koperasi_wilayah.koperasi_ref -> kode_wilayah",
+    "kode_wilayah -> referensi_komoditas_desa/referensi_profil_desa/referensi_wilayah"
+  ],
+  "sensitive_columns": {
+    "pengurus_koperasi": [
+      "no_hp",
+      "nik",
+      "email",
+      "alamat",
+      "foto_profil",
+      "file_ktp"
+    ],
+    "pengajuan_pembiayaan": [
+      "nik",
+      "penanggung_jawab",
+      "nomor_penanggung_jawab",
+      "formulir_permohonan_pembiayaan"
+    ],
+    "simpanan_anggota": [
+      "anggota_ref"
+    ],
+    "modal_koperasi": [
+      "file_perjanjian"
+    ]
+  }
+}

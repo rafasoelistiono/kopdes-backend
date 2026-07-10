@@ -1,0 +1,2 @@
+-- Summary tables are created by app.repositories.etl_repository.ensure_summary_tables().
+-- Run: python -m app.etl.jobs.refresh_all --period 2026-07

@@ -1,0 +1,1 @@
+-- SQL implemented in app.repositories.etl_repository.refresh_product_monthly_metrics.
