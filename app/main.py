@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
 from app.core.logging import setup_logging
-from app.api.routes import auth, health, meta, lookups, dashboards, etl, ui_screens
+from app.api.routes import auth, health, meta, lookups, dashboards, etl, ui_screens, komi
 
 setup_logging()
 
@@ -31,6 +31,8 @@ app.include_router(lookups.router, prefix=api_prefix, tags=["Lookups"])
 app.include_router(etl.router, prefix=api_prefix, tags=["ETL"])
 app.include_router(ui_screens.router, prefix=api_prefix, tags=["UI Screens"])
 app.include_router(dashboards.router, prefix=api_prefix, tags=["Dashboards"])
+app.include_router(komi.router, prefix="/api/komi", tags=["KOMI"])
+app.include_router(komi.router, prefix=f"{api_prefix}/komi", tags=["KOMI"])
 
 
 @app.get("/")

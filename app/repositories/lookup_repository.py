@@ -1,5 +1,5 @@
 from app.core.database import execute_query
-from app.repositories.schema_repository import table_exists, column_exists
+from app.repositories.schema_repository import table_exists
 
 
 def get_wilayah_options(provinsi: str | None = None, kab_kota: str | None = None,

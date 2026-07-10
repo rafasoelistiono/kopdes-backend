@@ -1,5 +1,5 @@
-from app.core.database import execute_query, execute_scalar
-from app.repositories.schema_repository import table_exists, column_exists
+from app.core.database import execute_query
+from app.repositories.schema_repository import table_exists
 
 
 def get_koperasi_profile(koperasi_ref: str) -> dict | None:

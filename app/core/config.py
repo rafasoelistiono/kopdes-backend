@@ -51,6 +51,16 @@ class Settings:
     log_level: str = os.getenv("LOG_LEVEL", "INFO")
     log_sql: bool = os.getenv("LOG_SQL", "false").lower() == "true"
 
+    komi_llm_enabled: bool = os.getenv("KOMI_LLM_ENABLED", "false").lower() == "true"
+    komi_llm_provider: str = os.getenv("KOMI_LLM_PROVIDER", "gemini")
+    komi_llm_api_key: str = os.getenv("KOMI_LLM_API_KEY", "")
+    komi_llm_model: str = os.getenv("KOMI_LLM_MODEL", "deepseek/deepseek-v4-flash")
+    komi_llm_timeout_seconds: int = int(os.getenv("KOMI_LLM_TIMEOUT_SECONDS", "8"))
+    komi_llm_max_output_tokens: int = int(os.getenv("KOMI_LLM_MAX_OUTPUT_TOKENS", "512"))
+    komi_openrouter_api_key: str = os.getenv("KOMI_OPENROUTER_API_KEY", "")
+    komi_openrouter_site_url: str = os.getenv("KOMI_OPENROUTER_SITE_URL", "http://localhost:3000")
+    komi_openrouter_app_name: str = os.getenv("KOMI_OPENROUTER_APP_NAME", "SIMKOPDES KOMI")
+
     @property
     def sync_database_url(self) -> str:
         if self.database_url:

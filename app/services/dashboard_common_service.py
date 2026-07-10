@@ -1,4 +1,3 @@
-from typing import Any
 from app.utils.response import make_metadata
 from app.utils.privacy import redact_nested_payload
 from app.utils.date_utils import now_iso
