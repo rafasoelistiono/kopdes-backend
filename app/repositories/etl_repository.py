@@ -401,6 +401,8 @@ def _upsert_rows(table: str, rows: list[dict], conflict_cols: list[str], jsonb_c
     if _dashboard_is_sqlite() and len(rows) * len(columns) > 900:
         chunk_size = max(1, 900 // len(columns))
         return sum(_upsert_rows(table, rows[i:i + chunk_size], conflict_cols, jsonb_cols) for i in range(0, len(rows), chunk_size))
+    if not _dashboard_is_sqlite() and len(rows) > 500:
+        return sum(_upsert_rows(table, rows[i:i + 500], conflict_cols, jsonb_cols) for i in range(0, len(rows), 500))
     placeholders = []
     params = {}
     for row_idx, row in enumerate(rows):
@@ -719,7 +721,10 @@ def _priority_score(row: dict) -> float:
 
 def _regional_rows_from_dashboard(period: str, year: int, month: int, t: dict[str, str]) -> list[dict]:
     base_rows = execute_dashboard_query(f"""
-        SELECT ks.*, km.period_month, COALESCE(km.total_omzet, 0) AS total_omzet,
+        SELECT ks.koperasi_ref, ks.status_registrasi, ks.kode_wilayah, ks.provinsi, ks.kab_kota,
+               ks.kecamatan, ks.desa_kelurahan, ks.has_npwp_doc, ks.has_nib_doc,
+               ks.has_badan_hukum_doc, ks.has_rat, ks.total_anggota,
+               km.period_month, COALESCE(km.total_omzet, 0) AS total_omzet,
                COALESCE(km.total_transaksi, 0) AS total_transaksi,
                COALESCE(km.total_volume_produk, 0) AS total_volume_produk,
                COALESCE(km.total_simpanan, 0) AS monthly_simpanan,
@@ -742,7 +747,7 @@ def _regional_rows_from_dashboard(period: str, year: int, month: int, t: dict[st
         LEFT JOIN {t['rat_compliance_snapshot']} rc ON rc.koperasi_ref = ks.koperasi_ref
         LEFT JOIN {t['gerai_asset_snapshot']} ga ON ga.koperasi_ref = ks.koperasi_ref
     """, {"period": period})
-    grouped: dict[tuple, list[dict]] = {}
+    grouped: dict[tuple[str, str], dict] = {}
     for row in base_rows:
         scopes = [
             ("nasional", "nasional", None, None, None, None, None),
@@ -752,9 +757,12 @@ def _regional_rows_from_dashboard(period: str, year: int, month: int, t: dict[st
             ("desa", row.get("kode_wilayah") or "unknown", row.get("provinsi"), row.get("kab_kota"), row.get("kecamatan"), row.get("desa_kelurahan"), row.get("kode_wilayah")),
         ]
         for scope in scopes:
-            grouped.setdefault(scope, []).append(row)
+            key = (scope[0], scope[1])
+            grouped.setdefault(key, {"scope": scope, "rows": []})["rows"].append(row)
     rows = []
-    for (level, code, prov, kab, kec, desa, kode), items in grouped.items():
+    for item in grouped.values():
+        level, code, prov, kab, kec, desa, kode = item["scope"]
+        items = item["rows"]
         total_simpanan = sum(float(i.get("monthly_simpanan") or 0) for i in items)
         paid = sum(float(i.get("simpanan_paid") or 0) for i in items)
         priority_scores = [_priority_score(i) for i in items]
@@ -794,86 +802,8 @@ def _regional_rows_from_dashboard(period: str, year: int, month: int, t: dict[st
 def refresh_regional_monthly_metrics(period: str) -> int:
     t = {base: prefixed(base) for base in SUMMARY_BASES}
     year, month = map(int, period.split("-"))
-    if _dashboard_is_sqlite():
-        rows = _regional_rows_from_dashboard(period, year, month, t)
-        return _upsert_rows(t["regional_monthly_metrics"], rows, ["scope_level", "scope_code", "period_month"])
-    return _execute_etl(f"""
-    WITH base AS (
-        SELECT ks.koperasi_ref, ks.status_registrasi, ks.kode_wilayah, ks.provinsi, ks.kab_kota,
-               ks.kecamatan, ks.desa_kelurahan, ks.has_npwp_doc, ks.has_nib_doc, ks.has_badan_hukum_doc,
-               ks.has_rat, ks.total_anggota,
-               km.period_month, coalesce(km.total_omzet, 0) total_omzet,
-               coalesce(km.total_transaksi, 0) total_transaksi, coalesce(km.total_volume_produk, 0) total_volume_produk,
-               coalesce(km.total_simpanan, 0) monthly_simpanan, coalesce(km.simpanan_paid, 0) simpanan_paid,
-               coalesce(km.total_pengajuan_pembiayaan, 0) total_pengajuan_pembiayaan,
-               coalesce(km.total_nominal_pembiayaan, 0) total_nominal_pembiayaan,
-               coalesce(km.total_pengajuan_kemitraan, 0) total_pengajuan_kemitraan,
-               coalesce(rc.rat_verified, false) rat_verified, coalesce(rc.rat_draft, false) rat_draft,
-               coalesce(ga.total_gerai, 0) total_gerai, coalesce(ga.gerai_aktif, 0) gerai_aktif,
-               coalesce(ga.gerai_belum_aktif, 0) gerai_belum_aktif, ga.pembangunan_bucket,
-               least(100,
-                 (CASE WHEN coalesce(rc.rat_verified, false) THEN 0 ELSE 25 END) +
-                 (CASE WHEN coalesce(km.total_transaksi, 0) = 0 THEN 20 ELSE 0 END) +
-                 (CASE WHEN coalesce(km.simpanan_paid_ratio, 0) < 60 THEN 15 ELSE 0 END) +
-                 (CASE WHEN NOT (coalesce(ks.has_npwp_doc, false) AND coalesce(ks.has_nib_doc, false) AND coalesce(ks.has_badan_hukum_doc, false)) THEN 15 ELSE 0 END) +
-                 (CASE WHEN coalesce(ga.gerai_aktif, 0) = 0 OR coalesce(ga.akses_listrik, false) = false OR coalesce(ga.akses_internet, false) = false THEN 10 ELSE 0 END) +
-                 (CASE WHEN ga.pembangunan_bucket = 'selesai' AND coalesce(km.total_transaksi, 0) = 0 THEN 10 ELSE 0 END)
-               ) priority_score
-        FROM {t['koperasi_snapshot']} ks
-        LEFT JOIN {t['koperasi_monthly_metrics']} km ON km.koperasi_ref = ks.koperasi_ref AND km.period_month = :period
-        LEFT JOIN {t['rat_compliance_snapshot']} rc ON rc.koperasi_ref = ks.koperasi_ref
-        LEFT JOIN {t['gerai_asset_snapshot']} ga ON ga.koperasi_ref = ks.koperasi_ref
-    ), scoped AS (
-        SELECT 'nasional' scope_level, 'nasional' scope_code, NULL::text scope_provinsi, NULL::text scope_kab_kota, NULL::text scope_kecamatan, NULL::text scope_desa_kelurahan, NULL::text scope_kode_wilayah, b.* FROM base b
-        UNION ALL SELECT 'provinsi', coalesce(b.provinsi, 'unknown'), b.provinsi, NULL, NULL, NULL, NULL, b.* FROM base b
-        UNION ALL SELECT 'kab_kota', coalesce(b.kab_kota, 'unknown'), b.provinsi, b.kab_kota, NULL, NULL, NULL, b.* FROM base b
-        UNION ALL SELECT 'kecamatan', coalesce(b.kecamatan, 'unknown'), b.provinsi, b.kab_kota, b.kecamatan, NULL, NULL, b.* FROM base b
-        UNION ALL SELECT 'desa', coalesce(b.kode_wilayah, 'unknown'), b.provinsi, b.kab_kota, b.kecamatan, b.desa_kelurahan, b.kode_wilayah, b.* FROM base b
-    )
-    INSERT INTO {t['regional_monthly_metrics']} (
-        metric_ref, scope_level, scope_code, provinsi, kab_kota, kecamatan, desa_kelurahan,
-        kode_wilayah, period_month, year, month, total_koperasi, koperasi_aktif,
-        koperasi_has_npwp, koperasi_has_nib, total_anggota, total_simpanan,
-        total_simpanan_paid, simpanan_paid_ratio, total_omzet, total_transaksi,
-        total_volume_produk, total_rat, rat_verified, rat_draft, belum_rat, total_gerai,
-        gerai_aktif, gerai_belum_aktif, pembangunan_belum_mulai, pembangunan_berjalan,
-        pembangunan_selesai, total_pengajuan_pembiayaan, total_nominal_pembiayaan,
-        total_pengajuan_kemitraan, priority_score, updated_at
-    )
-    SELECT scope_level || '-' || scope_code || '-' || :period, scope_level, scope_code, scoped.scope_provinsi,
-           scoped.scope_kab_kota, scoped.scope_kecamatan, scoped.scope_desa_kelurahan, scoped.scope_kode_wilayah,
-           :period, :year, :month, count(*)::int,
-           count(*) FILTER (WHERE lower(coalesce(status_registrasi, '')) IN ('verified','aktif','active'))::int,
-           count(*) FILTER (WHERE has_npwp_doc)::int, count(*) FILTER (WHERE has_nib_doc)::int,
-           coalesce(sum(total_anggota), 0)::int, coalesce(sum(monthly_simpanan), 0), coalesce(sum(simpanan_paid), 0),
-           CASE WHEN coalesce(sum(monthly_simpanan), 0) > 0 THEN round(sum(simpanan_paid) / sum(monthly_simpanan) * 100, 2) ELSE 0 END,
-           coalesce(sum(total_omzet), 0), coalesce(sum(total_transaksi), 0)::int, coalesce(sum(total_volume_produk), 0),
-           count(*) FILTER (WHERE has_rat)::int, count(*) FILTER (WHERE rat_verified)::int,
-           count(*) FILTER (WHERE rat_draft)::int, count(*) FILTER (WHERE NOT has_rat)::int,
-           coalesce(sum(total_gerai), 0)::int, coalesce(sum(gerai_aktif), 0)::int, coalesce(sum(gerai_belum_aktif), 0)::int,
-           count(*) FILTER (WHERE pembangunan_bucket = 'belum_mulai')::int,
-           count(*) FILTER (WHERE pembangunan_bucket = 'berjalan')::int,
-           count(*) FILTER (WHERE pembangunan_bucket = 'selesai')::int,
-           coalesce(sum(total_pengajuan_pembiayaan), 0)::int, coalesce(sum(total_nominal_pembiayaan), 0),
-           coalesce(sum(total_pengajuan_kemitraan), 0)::int, round(avg(priority_score), 2), now()
-    FROM scoped
-    GROUP BY scope_level, scope_code, scoped.scope_provinsi, scoped.scope_kab_kota, scoped.scope_kecamatan, scoped.scope_desa_kelurahan, scoped.scope_kode_wilayah
-    ON CONFLICT (scope_level, scope_code, period_month) DO UPDATE SET
-        total_koperasi = EXCLUDED.total_koperasi, koperasi_aktif = EXCLUDED.koperasi_aktif,
-        koperasi_has_npwp = EXCLUDED.koperasi_has_npwp, koperasi_has_nib = EXCLUDED.koperasi_has_nib,
-        total_anggota = EXCLUDED.total_anggota, total_simpanan = EXCLUDED.total_simpanan,
-        total_simpanan_paid = EXCLUDED.total_simpanan_paid, simpanan_paid_ratio = EXCLUDED.simpanan_paid_ratio,
-        total_omzet = EXCLUDED.total_omzet, total_transaksi = EXCLUDED.total_transaksi,
-        total_volume_produk = EXCLUDED.total_volume_produk, total_rat = EXCLUDED.total_rat,
-        rat_verified = EXCLUDED.rat_verified, rat_draft = EXCLUDED.rat_draft, belum_rat = EXCLUDED.belum_rat,
-        total_gerai = EXCLUDED.total_gerai, gerai_aktif = EXCLUDED.gerai_aktif,
-        gerai_belum_aktif = EXCLUDED.gerai_belum_aktif, pembangunan_belum_mulai = EXCLUDED.pembangunan_belum_mulai,
-        pembangunan_berjalan = EXCLUDED.pembangunan_berjalan, pembangunan_selesai = EXCLUDED.pembangunan_selesai,
-        total_pengajuan_pembiayaan = EXCLUDED.total_pengajuan_pembiayaan,
-        total_nominal_pembiayaan = EXCLUDED.total_nominal_pembiayaan,
-        total_pengajuan_kemitraan = EXCLUDED.total_pengajuan_kemitraan,
-        priority_score = EXCLUDED.priority_score, updated_at = now()
-    """, {"period": period, "year": year, "month": month})
+    rows = _regional_rows_from_dashboard(period, year, month, t)
+    return _upsert_rows(t["regional_monthly_metrics"], rows, ["scope_level", "scope_code", "period_month"])
 
 
 def latest_runs(limit: int = 20) -> list[dict]:
