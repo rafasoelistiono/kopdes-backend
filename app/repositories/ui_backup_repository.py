@@ -38,14 +38,14 @@ def _clean_value(value):
 def _backup_rows(table: str, rows: list[dict], conflict_cols: list[str]) -> int:
     if not rows:
         return 0
+    clean = [{k: _clean_value(v) for k, v in row.items()} for row in rows]
     if settings.sync_dashboard_database_url.startswith("sqlite"):
         cols = list(rows[0].keys())
         sql = f"INSERT OR REPLACE INTO {table} ({', '.join(cols)}) VALUES ({', '.join(':' + c for c in cols)})"
-        clean = [{k: _clean_value(v) for k, v in row.items()} for row in rows]
         with get_dashboard_engine().begin() as conn:
             conn.execute(text(sql), clean)
         return len(rows)
-    return _upsert_rows(table, rows, conflict_cols)
+    return _upsert_rows(table, clean, conflict_cols)
 
 
 def _mask_name_sql(column: str) -> str:
