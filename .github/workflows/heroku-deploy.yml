@@ -34,6 +34,3 @@ jobs:
           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
           usedocker: false
-          healthcheck: https://${{ secrets.HEROKU_APP_NAME }}.herokuapp.com/
-          checkstring: kopdes-backend
-          rollbackonhealthcheckfailed: true
