@@ -88,3 +88,4 @@ curl https://kopdes-backend-prod-70b0b761e530.herokuapp.com/health
 - Jangan commit `.env`.
 - `.env.example` hanya template.
 - `DATABASE_URL` biasanya otomatis dari Heroku Postgres.
+- URL REPO FRONTEND : https://github.com/rafasoelistiono/kopdes-frontend
